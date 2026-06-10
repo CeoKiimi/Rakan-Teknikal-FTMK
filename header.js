@@ -38,6 +38,7 @@ if (headerContainer) {
   `;
 
   const navLinks = document.querySelectorAll(".nav-row a");
+
   navLinks.forEach((link) => {
     if (link.dataset.page === activePage) {
       link.classList.add("active");
