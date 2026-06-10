@@ -37,7 +37,7 @@ loginForm.addEventListener("submit", (event) => {
       })
     );
 
-    window.location.href = "admin-dashboard.html";
+    window.location.href = "admin-dashboard.php";
   } 
   
   else if (userId === "student" && password === "student") {
@@ -49,7 +49,7 @@ loginForm.addEventListener("submit", (event) => {
       })
     );
 
-    window.location.href = "student-dashboard.html";
+    window.location.href = "student-dashboard.php";
   } 
   
   else {

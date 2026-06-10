@@ -30,9 +30,9 @@ if (headerContainer) {
       </div>
 
       <nav class="nav-row">
-        <a href="student-dashboard.html" data-page="dashboard">Dashboard</a>
-        <a href="profile.html" data-page="profile">Profile</a>
-        <a href="jobs-available.html" data-page="jobs">Jobs Available</a>
+        <a href="student-dashboard.php" data-page="dashboard">Dashboard</a>
+        <a href="profile.php" data-page="profile">Profile</a>
+        <a href="jobs-available.php" data-page="jobs">Jobs Available</a>
       </nav>
     </header>
   `;
