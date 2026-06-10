@@ -1,0 +1,80 @@
+.top-header {
+  width: 100%;
+  margin: 0;
+  background: linear-gradient(90deg, #ffba00, #f8b400);
+  color: white;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+  font-family: "Poppins", sans-serif;
+}
+
+.top-row {
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 30px;
+  gap: 25px;
+}
+
+.brand-name {
+  font-size: 15px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.header-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.header-icon {
+  font-size: 18px;
+}
+
+.header-divider {
+  width: 1px;
+  height: 22px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.nav-row {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  padding-left: 30px;
+}
+
+.nav-row a {
+  color: #1a4a7b; 
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.nav-row a.active {
+  color: #ffffff;
+}
+
+@media (max-width: 950px) {
+  .top-row {
+    height: auto;
+    padding: 15px 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .header-divider {
+    display: none;
+  }
+
+  .nav-row {
+    height: 42px;
+    gap: 30px;
+    padding-left: 20px;
+  }
+}
