@@ -43,7 +43,7 @@ $activePage = "jobs";
             <p>Date : 20/4 - 3/5</p>
             <p>Allowance : RM5/Hours</p>
           </div>
-          <button class="small-btn">Apply</button>
+          <button type="button" class="small-btn apply-btn">Apply</button>
         </div>
       </div>
 
@@ -55,7 +55,7 @@ $activePage = "jobs";
             <p>Date : 1/6</p>
             <p>Allowance : RM40</p>
           </div>
-          <button class="small-btn">Apply</button>
+          <button type="button" class="small-btn apply-btn">Apply</button>
         </div>
       </div>
 
@@ -67,7 +67,7 @@ $activePage = "jobs";
             <p>Date : 20/4 - 3/5</p>
             <p>Allowance : RM100</p>
           </div>
-          <button class="small-btn">Apply</button>
+          <button type="button" class="small-btn apply-btn">Apply</button>
         </div>
       </div>
     </section>

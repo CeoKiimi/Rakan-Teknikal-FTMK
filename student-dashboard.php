@@ -49,7 +49,7 @@ $studentName = $_SESSION["student_name"] ?? "Ain";
             <p>Duration : 1 Week</p>
           </div>
 
-          <button class="small-btn">Apply</button>
+          <button type="button" class="small-btn apply-btn">Apply</button>
         </div>
 
         <div class="job-box">
@@ -59,7 +59,7 @@ $studentName = $_SESSION["student_name"] ?? "Ain";
             <p>Duration : 2 Weeks</p>
           </div>
 
-          <button class="small-btn">Apply</button>
+          <button type="button" class="small-btn apply-btn">Apply</button>
         </div>
 
         <div class="card-footer">
@@ -125,6 +125,6 @@ $studentName = $_SESSION["student_name"] ?? "Ain";
     </section>
   </main>
 
-  <script src="student-dashboard.js"></script>
+  <script src="student-dashboard.js?v=2"></script>
 </body>
 </html>

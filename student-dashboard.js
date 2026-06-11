@@ -12,10 +12,10 @@ if (dateText) {
   dateText.textContent = formattedDate;
 }
 
-const applyButtons = document.querySelectorAll(".small-btn");
+const applyButtons = document.querySelectorAll(".apply-btn");
 
 applyButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    alert("Application submitted.");
+    window.location.href = "application-success.php";
   });
 });
