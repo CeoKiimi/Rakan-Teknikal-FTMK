@@ -35,7 +35,7 @@ body{
 
 .container{
     width:90%;
-    margin:30px 80px;
+    margin:30px auto;
     background:#fdf5f0;
     padding:40px;
     border-radius:7px;
