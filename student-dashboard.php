@@ -1,3 +1,10 @@
+<?php
+require "auth.php";
+
+$activePage = "dashboard";
+$studentName = $_SESSION["student_name"] ?? "Ain";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,15 +16,15 @@
   <link rel="stylesheet" href="header.css" />
   <link rel="stylesheet" href="student-dashboard.css" />
 </head>
-<body data-active-page="dashboard">
+<body>
 
-  <div id="siteHeader"></div>
+  <?php include "student-header.php"; ?>
 
   <main class="dashboard-page">
     <section class="welcome-banner">
       <div class="welcome-text">
         <p class="date-text" id="dateText">14 April 2026</p>
-        <h1>Welcome Back, <span id="studentName">Ain</span></h1>
+        <h1>Welcome Back, <?php echo htmlspecialchars($studentName); ?></h1>
         <p>Rakan Teknikal helps you earn extra income</p>
       </div>
 
@@ -118,7 +125,6 @@
     </section>
   </main>
 
-  <script src="header.js"></script>
   <script src="student-dashboard.js"></script>
 </body>
 </html>

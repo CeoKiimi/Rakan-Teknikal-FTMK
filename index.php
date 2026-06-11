@@ -1,8 +1,20 @@
+<?php
+session_start();
+
+if (isset($_SESSION["student_logged_in"]) && $_SESSION["student_logged_in"] === true) {
+  header("Location: student-dashboard.php");
+  exit;
+}
+
+$error = $_GET["error"] ?? "";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Rakan Teknikal FTMK Login</title>
 
   <link rel="stylesheet" href="style.css" />
@@ -26,7 +38,7 @@
     </section>
 
     <section class="right-section">
-      <form class="login-box" id="loginForm" autocomplete="off">
+      <form class="login-box" id="loginForm" action="login.php" method="POST" autocomplete="off">
         <h1>Welcome Back !</h1>
 
         <div class="input-group">
@@ -63,7 +75,17 @@
           </div>
         </div>
 
-        <p class="error-message" id="errorMessage"></p>
+        <p class="error-message" id="errorMessage">
+          <?php
+            if ($error === "empty") {
+              echo "Please enter User Id and Password.";
+            } elseif ($error === "invalid") {
+              echo "Invalid User Id or Password.";
+            } elseif ($error === "unauthorized") {
+              echo "Please login first.";
+            }
+          ?>
+        </p>
 
         <button type="submit" class="login-btn">Login</button>
       </form>

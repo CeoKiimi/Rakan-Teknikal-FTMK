@@ -1,3 +1,11 @@
+<?php
+require "auth.php";
+
+$activePage = "profile";
+$fullName = $_SESSION["student_full_name"] ?? "Nurulain Nabilah binti Hashahar Shah";
+$matricNo = $_SESSION["student_matric"] ?? "D032410187";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,9 +17,9 @@
   <link rel="stylesheet" href="header.css" />
   <link rel="stylesheet" href="profile.css" />
 </head>
-<body data-active-page="profile">
+<body>
 
-  <div id="siteHeader"></div>
+  <?php include "student-header.php"; ?>
 
   <main class="profile-page">
     <section class="profile-card">
@@ -22,9 +30,9 @@
       </div>
 
       <div class="profile-info">
-        <h1>Nurulain Nabilah binti Hashahar Shah</h1>
+        <h1><?php echo htmlspecialchars($fullName); ?></h1>
 
-        <p>Matric No : D032410000</p>
+        <p>Matric No : <?php echo htmlspecialchars($matricNo); ?></p>
         <p>Programe : DCS</p>
         <p>Year/Sem : 2/2</p>
         <p>Status : B40</p>
@@ -69,6 +77,5 @@
     </section>
   </main>
 
-  <script src="header.js"></script>
 </body>
 </html>

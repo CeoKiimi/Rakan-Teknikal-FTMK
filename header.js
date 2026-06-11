@@ -33,6 +33,7 @@ if (headerContainer) {
         <a href="student-dashboard.php" data-page="dashboard">Dashboard</a>
         <a href="profile.php" data-page="profile">Profile</a>
         <a href="jobs-available.php" data-page="jobs">Jobs Available</a>
+        <a href="logout.php">Logout</a>
       </nav>
     </header>
   `;
