@@ -1,23 +1,21 @@
 <?php
-$applications = [
-    ["full_name"=>"Daus", "job_title"=>"Dev", "location"=>"Melaka"],
-    ["full_name"=>"Ain", "job_title"=>"UIUX", "location"=>"KL"],
-    ["full_name"=>"Kimi", "job_title"=>"Backend", "location"=>"Johor"]
-];
 
-echo "<pre>";
-print_r($applications);
-echo "</pre>";
+$conn = mysqli_connect("localhost", "root", "", "nama_database");
+$sql = "SELECT full_name, job_title, location FROM applications";
+$result = mysqli_query($conn, $sql);
+
 ?>
 
 <div class="grid">
 
-<?php foreach($applications as $row): ?>
+<?php while($row = mysqli_fetch_assoc($result)): ?>
 
     <div class="card">
         <h2><?php echo $row['full_name']; ?></h2>
+        <p><?php echo $row['job_title']; ?></p>
+        <p><?php echo $row['location']; ?></p>
     </div>
 
-<?php endforeach; ?>
+<?php endwhile; ?>
 
 </div>
