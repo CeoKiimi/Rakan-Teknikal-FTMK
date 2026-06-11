@@ -1,5 +1,5 @@
 <?php
-require "auth.php";
+session_start();
 
 $activePage = "dashboard";
 ?>
@@ -17,7 +17,7 @@ $activePage = "dashboard";
 </head>
 <body>
 
-  <?php include "student-header.php"; ?>
+  <?php include "header.php"; ?>
 
   <main class="application-page">
     <section class="success-card">

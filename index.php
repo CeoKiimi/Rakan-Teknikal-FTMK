@@ -1,11 +1,6 @@
 <?php
 session_start();
 
-if (isset($_SESSION["student_logged_in"]) && $_SESSION["student_logged_in"] === true) {
-  header("Location: student-dashboard.php");
-  exit;
-}
-
 $error = $_GET["error"] ?? "";
 ?>
 

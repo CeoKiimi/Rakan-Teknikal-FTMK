@@ -1,5 +1,5 @@
 <?php
-require "auth.php";
+session_start();
 
 $activePage = "dashboard";
 $studentName = $_SESSION["student_name"] ?? "Ain";
@@ -18,7 +18,7 @@ $studentName = $_SESSION["student_name"] ?? "Ain";
 </head>
 <body>
 
-  <?php include "student-header.php"; ?>
+  <?php include "header.php"; ?>
 
   <main class="dashboard-page">
     <section class="welcome-banner">
@@ -63,7 +63,9 @@ $studentName = $_SESSION["student_name"] ?? "Ain";
         </div>
 
         <div class="card-footer">
-          <button class="main-btn">View All Jobs</button>
+          <button class="main-btn" onclick="window.location.href='jobs-available.php'">
+            View All Jobs
+          </button>
         </div>
       </div>
 
@@ -101,7 +103,9 @@ $studentName = $_SESSION["student_name"] ?? "Ain";
         </div>
 
         <div class="card-footer">
-          <button class="main-btn">View More</button>
+          <button class="view-more-btn" onclick="window.location.href='my-application.php'">
+            View More
+          </button>
         </div>
       </div>
 

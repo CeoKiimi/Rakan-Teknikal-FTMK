@@ -1,5 +1,5 @@
 <?php
-require "auth.php";
+session_start();
 
 $activePage = "jobs";
 ?>
@@ -16,7 +16,7 @@ $activePage = "jobs";
 </head>
 <body>
 
-<?php include "student-header.php"; ?>
+<?php include "header.php"; ?>
 
 <main class="jobs-page">
 

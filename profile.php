@@ -1,5 +1,5 @@
 <?php
-require "auth.php";
+session_start();
 
 $activePage = "profile";
 $fullName = $_SESSION["student_full_name"] ?? "Nurulain Nabilah binti Hashahar Shah";
@@ -19,7 +19,7 @@ $matricNo = $_SESSION["student_matric"] ?? "D032410187";
 </head>
 <body>
 
-  <?php include "student-header.php"; ?>
+  <?php include "header.php"; ?>
 
   <main class="profile-page">
     <section class="profile-card">
