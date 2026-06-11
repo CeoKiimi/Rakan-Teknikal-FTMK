@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Dashboard</title>
+
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+<div class="topbar">
+    <div class="logo">Fantastic5</div>
+
+    <div class="contact">
+        <i class="fa-solid fa-location-dot"></i>
+        FTMK, Universiti Teknikal Malaysia Melaka
+    </div>
+
+    <div class="contact">
+        <i class="fa-solid fa-phone"></i>
+        +06 229 2121
+    </div>
+
+    <div class="contact">
+        <i class="fa-solid fa-envelope"></i>
+        ftmk@utem.edu.my
+    </div>
+</div>
+
+<div class="navbar">
+    <a href="dashboard.php">Dashboard</a>
+    <a href="profile.php">Profile</a>
+    <a href="jobs.php">Jobs Available</a>
+</div>
+
+<div class="container">
+
+    <div class="title">
+        <div>
+            <h1>Pending Application</h1>
+            <p>Manage Applications by approving and rejecting</p>
+        </div>
+
+        <img src="admin.png">
+    </div>
+
+    <div class="grid">
+
+        <?php foreach($applications as $row) { ?>
+
+        <div class="card">
+
+            <h2><?php echo $row['full_name']; ?></h2>
+
+            <p>
+                <?php echo $row['job_title']; ?>,
+                <?php echo $row['location']; ?>
+            </p>
+
+            <div class="button">
+
+                <a class="green"
+                   href="approve.php?id=<?php echo $row['application_id']; ?>">
+                   Approve
+                </a>
+
+                <a class="red"
+                   href="reject.php?id=<?php echo $row['application_id']; ?>">
+                   Reject
+                </a>
+
+                <a class="yellow"
+                   href="viewProfile.php?id=<?php echo $row['application_id']; ?>">
+                   View Profile
+                </a>
+
+            </div>
+
+        </div>
+
+        <?php } ?>
+
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
