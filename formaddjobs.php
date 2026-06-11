@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         "todo" => $todo
     ];
 
-    header("Location: page6admin.php");
+    header("Location: addjobssuccess.php");
     exit();
 }
 ?>
@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
 </div>
 
-<script src="page5admin.js"></script>
+<script src="addjobs.js"></script>
 
 </body>
 </html>
