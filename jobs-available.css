@@ -1,0 +1,149 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#efe2c7;
+    font-family:"Poppins","Segoe UI",sans-serif;
+}
+
+.jobs-page{
+    padding:22px;
+}
+
+.jobs-container{
+    background:#f5efeb;
+    border-radius:18px;
+    padding:22px;
+}
+
+.jobs-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:20px;
+}
+
+.jobs-header{
+    padding-top:15px;
+}
+
+.jobs-header h1{
+    font-size:28px;
+    font-weight:700;
+    color:#5c5c5c;
+    margin-bottom:6px;
+}
+
+.jobs-header p{
+    font-size:16px;
+    color:#7b7b7b;
+}
+
+.jobs-image{
+    width:300px;
+    height:130px;
+}
+
+.jobs-image img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+}
+
+.jobs-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.job-card{
+    background:#ffffff;
+    border-radius:10px;
+    padding:15px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.08);
+    position:relative;
+    min-height:180px;
+}
+
+.job-card h2{
+    font-size:20px;
+    font-weight:700;
+    margin-bottom:6px;
+    color:#111;
+}
+
+.job-card p{
+    font-size:15px;
+    color:#333;
+    margin-bottom:3px;
+}
+
+.todo{
+    margin-top:8px;
+    color:#8a8a8a;
+    font-size:15px;
+    line-height:1.4;
+    width:85%;
+}
+
+.apply-btn{
+    position:absolute;
+    right:12px;
+    bottom:12px;
+
+    width:60px;
+    height:32px;
+
+    border:none;
+    border-radius:10px;
+
+    background:#f8b400;
+    color:white;
+
+    font-weight:700;
+    cursor:pointer;
+}
+
+.apply-btn:hover{
+    background:#e2a300;
+}
+
+@media(max-width:900px){
+
+    .jobs-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .jobs-top{
+        flex-direction:column;
+    }
+
+    .jobs-image{
+        margin-top:15px;
+    }
+}
+
+@media(max-width:600px){
+
+    .jobs-page{
+        padding:12px;
+    }
+
+    .jobs-grid{
+        grid-template-columns:1fr;
+    }
+
+    .jobs-image{
+        width:100%;
+        height:auto;
+        text-align:center;
+    }
+
+    .jobs-image img{
+        width:240px;
+        height:auto;
+    }
+}

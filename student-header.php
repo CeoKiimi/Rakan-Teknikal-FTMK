@@ -26,7 +26,7 @@ $activePage = $activePage ?? "";
       <span class="header-icon">✉️</span>
       <span>ftmk@utem.edu.my</span>
     </div>
-  </div>
+  </div>  
 
   <nav class="nav-row">
     <a href="student-dashboard.php" class="<?php echo $activePage === 'dashboard' ? 'active' : ''; ?>">Dashboard</a>
