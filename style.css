@@ -34,7 +34,6 @@ align-items:center;
 gap:10px;
 }
 
-/* NAVBAR */
 .navbar{
 height:60px;
 background:#fab702;
@@ -50,7 +49,7 @@ font-size:22px;
 text-decoration:underline;
 }
 
-/* CONTAINER */
+
 .container{
 width:96%;
 margin:auto;
@@ -84,7 +83,7 @@ margin-top:10px;
 width:230px;
 }
 
-/* GRID */
+
 .grid{
 margin-top:35px;
 display:grid;
@@ -93,7 +92,7 @@ gap:35px;
 width:70%;
 }
 
-/* CARD */
+
 .card{
 background:white;
 padding:25px;
@@ -120,7 +119,6 @@ margin-top:8px;
 color:gray;
 }
 
-/* BUTTON */
 .button{
 margin-top:25px;
 display:flex;
@@ -172,7 +170,7 @@ transition:.3s;
 background:#d89e00;
 }
 
-/* RESPONSIVE */
+
 @media(max-width:1200px){
 .grid{
 grid-template-columns:1fr;

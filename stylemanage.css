@@ -1,0 +1,202 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#fff0cd;
+}
+
+.topbar{
+    background:#fab702;
+    height:65px;
+    display:flex;
+    align-items:center;
+    color:white;
+}
+
+.logo{
+    width:160px;
+    height:65px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:18px;
+    font-weight:500;
+    border-right:1px solid rgba(255,255,255,0.5);
+}
+
+.contact{
+    height:65px;
+    display:flex;
+    align-items:center;
+    padding:0 30px;
+    font-size:15px;
+    border-right:1px solid rgba(255,255,255,0.5);
+}
+
+
+
+.menu{
+    background:#fab702;
+    padding:15px 40px;
+}
+
+.menu a{
+    margin-right:80px;
+    color:black;
+    font-size:16px;
+    font-weight:500;
+}
+
+
+
+.content-box{
+
+    width:95%;
+    margin:20px auto;
+    background:#fdf5f0;
+    border-radius:20px;
+    padding:25px;
+}
+
+
+
+.top-section{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.top-section h1{
+
+    font-size:28px;
+    color:#666;
+    font-weight:700;
+}
+
+.top-section p{
+
+    font-size:16px;
+    color:#888;
+    margin-top:5px;
+}
+
+.add-job{
+
+    display:inline-block;
+    margin-top:10px;
+    color:#0066cc;
+    font-size:15px;
+}
+
+.top-section img{
+
+    width:250px;
+    height:auto;
+    object-fit:contain;
+}
+
+
+
+.job-container{
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+
+
+.job-card{
+
+    background:white;
+    border-radius:12px;
+    padding:16px;
+    min-height:190px;
+    position:relative;
+    box-shadow:0 2px 8px rgba(0,0,0,0.12);
+}
+
+.job-card h2{
+
+    font-size:18px;
+    font-weight:700;
+    margin-bottom:5px;
+}
+
+.job-card h3{
+
+    font-size:15px;
+    font-weight:500;
+    margin-bottom:8px;
+}
+
+.job-card p{
+
+    font-size:14px;
+    margin-bottom:3px;
+}
+
+.job-card span{
+
+    display:block;
+    margin-top:5px;
+    color:#777;
+    font-size:13px;
+    line-height:1.4;
+}
+
+
+
+.delete-btn{
+
+    position:absolute;
+    right:12px;
+    bottom:12px;
+    border:none;
+    background:#ff3131;
+    color:white;
+    font-size:13px;
+    font-weight:600;
+    padding:8px 15px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.delete-btn:hover{
+
+    opacity:0.9;
+}
+
+
+
+@media(max-width:1000px){
+
+    .job-container{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:700px){
+
+    .job-container{
+
+        grid-template-columns:1fr;
+    }
+
+    .top-section{
+
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .top-section img{
+
+        margin-top:20px;
+    }
+}
