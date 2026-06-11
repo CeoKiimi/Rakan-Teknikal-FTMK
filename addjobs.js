@@ -7,6 +7,16 @@ function checkForm()
     let allowance = document.getElementById("allowance").value;
     let todo = document.getElementById("todo").value;
 
-    alert("Job added successfully!");
+    if (!job || !location || !start_date || !end_date || !allowance || !todo) {
+        alert("Please fill all fields!");
+        return false;
+    }
+
+    if (end_date < start_date) {
+        alert("End date cannot be earlier than start date!");
+        return false;
+    }
+
+    alert("Job submitted successfully!");
     return true;
 }
