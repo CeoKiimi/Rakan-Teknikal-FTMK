@@ -28,7 +28,7 @@ $activePage = "jobs";
       </div>
 
       <img
-        src="images/gambar shopping.png"
+        src="images/gambar jobs.png"
         alt="Jobs illustration"
         class="banner-img"
       />
