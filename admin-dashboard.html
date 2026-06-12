@@ -1,4 +1,12 @@
-   
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rakan Teknikal – Admin Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+       
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --yellow:      #FFC107;
@@ -380,3 +388,356 @@
       font-family: inherit; transition: background 0.15s;
     }
     .btn-logout:hover { background: rgba(0,0,0,0.15); }
+  </style>
+</head>
+<body>
+
+
+<div class="topbar">
+  <div class="topbar-left">
+    <span class="brand">Rakan Teknikal</span>
+    <span class="topbar-info">📍 FTMK, Universiti Teknikal Malaysia Melaka</span>
+  </div>
+  <div class="topbar-right">
+    <span class="topbar-info">📞 +06 229 2121</span>
+    <span class="topbar-info">✉️ ftmk@utem.edu.my</span>
+    <button class="btn-logout" onclick="doLogout()">Logout</button>
+  </div>
+</div>
+
+
+<nav class="navbar">
+  <a href="admin-dashboard.html" class="active">Dashboard</a>
+  <a href="profile.html">Profile</a>
+  <a href="manage-jobs.html">Jobs Available</a>
+</nav>
+
+
+<div class="content-area">
+
+  <div class="admin-guard" id="adminGuard">
+    🔐 Admin access only — <strong id="adminIdDisplay">STAFF001</strong>
+  </div>
+
+
+  <div class="stats-row">
+    <div class="stat-card accent">
+      <div class="stat-num" id="statJobs">6</div>
+      <div class="stat-label">💼 Jobs Posted</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="statApps">5</div>
+      <div class="stat-label">📋 Applications</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="statPending">3</div>
+      <div class="stat-label">⏳ Pending</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="statApproved">1</div>
+      <div class="stat-label">✅ Approved</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="statStudents">28</div>
+      <div class="stat-label">👥 Students</div>
+    </div>
+  </div>
+
+
+  <div class="dashboard-grid">
+
+
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-icon">🗂️</span>
+        <span class="panel-title">Manage Jobs</span>
+        <button class="btn-add" onclick="openAddJobModal()">+ Add Job</button>
+      </div>
+      <div class="panel-body" id="jobsList"></div>
+      <div class="panel-footer">
+        <a href="manage-jobs.html" class="btn-view">View All Jobs</a>
+      </div>
+    </div>
+
+  
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-icon">📁</span>
+        <span class="panel-title">Pending Applications</span>
+        <span class="panel-count" id="pendingCount">3</span>
+      </div>
+      <div class="panel-body" id="appsList"></div>
+      <div class="panel-footer">
+        <a href="applications.html" class="btn-view">View More</a>
+      </div>
+    </div>
+
+    
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-icon">🏅</span>
+        <span class="panel-title">Manage Merit</span>
+      </div>
+      <div class="panel-body" id="meritList"></div>
+      <div class="panel-footer">
+        <a href="manage-merit.html" class="btn-view">View More</a>
+      </div>
+    </div>
+
+  </div>
+
+ 
+  <div class="panel" style="margin-top:18px;">
+    <div class="panel-header">
+      <span class="panel-icon">🕐</span>
+      <span class="panel-title">Recent Activity</span>
+    </div>
+    <div class="panel-body" id="activityList"></div>
+  </div>
+
+</div>
+
+
+<div class="modal-overlay" id="addJobModal">
+  <div class="modal-box">
+    <div class="modal-title">Add Jobs</div>
+    <div class="form-group">
+      <label>Job</label><span class="colon">:</span>
+      <input type="text" id="fJob" placeholder="e.g. Lab Inventory"/>
+    </div>
+    <div class="form-group">
+      <label>Location</label><span class="colon">:</span>
+      <input type="text" id="fLocation" placeholder="e.g. AI2"/>
+    </div>
+    <div class="form-group">
+      <label>Date</label><span class="colon">:</span>
+      <input type="text" id="fDate" placeholder="e.g. 20/4 – 3/5"/>
+    </div>
+    <div class="form-group">
+      <label>Allowance</label><span class="colon">:</span>
+      <input type="number" id="fAllowance" placeholder="RM" min="0.01" step="0.01"/>
+    </div>
+    <div class="form-group">
+      <label>To Do</label><span class="colon">:</span>
+      <input type="text" id="fTodo" placeholder="Brief task description"/>
+    </div>
+    <div class="form-actions">
+      <button class="btn-cancel-sm" onclick="closeAddJobModal()">Cancel</button>
+      <button class="btn-submit" onclick="submitJob()">Submit</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="del-modal-overlay" id="delModal">
+  <div class="del-modal-box">
+    <div class="del-modal-title">Delete this job?</div>
+    <div class="del-modal-body" id="delModalBody">This will remove the listing and all related applications. This cannot be undone.</div>
+    <div class="del-actions">
+      <button class="btn-cancel-sm" onclick="closeDelModal()">Cancel</button>
+      <button class="btn-confirm-del" id="confirmDelBtn">Delete</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="success-overlay" id="successOverlay">
+  <div class="success-card">
+    <div class="success-title" id="successTitle">Job Added Successfully</div>
+    <span class="success-art">🧑‍💼</span>
+    <button class="btn-ok" onclick="closeSuccess()">OK</button>
+  </div>
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+<script>
+
+  (function() {
+    const role = sessionStorage.getItem('rt_role');
+    const uid  = sessionStorage.getItem('rt_user');
+  
+    // if (role !== 'admin') { window.location.href = 'login.html'; return; (uncomment nak enforce redirect)}
+    if (uid) document.getElementById('adminIdDisplay').textContent = uid;
+  })();
+
+  /* replace wiht php later */
+  let jobs = [
+    { id: 1, title: 'Lab Opener/Closer', location: 'Level 2, Blok B', duration: '1 Week',  allowance: 7 },
+    { id: 2, title: 'Lab Inventory',     location: 'AI2',              duration: '2 Weeks', allowance: 5 },
+    { id: 3, title: 'Room Monitor',      location: 'Student Room',     duration: '2 Weeks', allowance: 4 },
+    { id: 4, title: 'Software Installer',location: 'Bengkel BITD',     duration: '2 Weeks', allowance: 100 },
+    { id: 5, title: 'Key Keeper',        location: 'Level G, Blok C',  duration: '1/6',     allowance: 40 },
+  ];
+
+  const applications = [
+    { id: 1, name: 'Nurulain Nabilah binti Hashah', role: 'Room Monitor',       initials: 'NN' },
+    { id: 2, name: 'Muhammad Firdau bin Abdul',     role: 'Key Keeper',         initials: 'MF' },
+    { id: 3, name: 'Hafidz Hakimi bin Alham Rad',   role: 'Software Installer', initials: 'HH' },
+  ];
+
+  const merits = [
+    { name: 'Nurulain Nabilah',  role: 'Room Monitor',  score: 92, initials: 'NN' },
+    { name: 'Muhammad Firdau',   role: 'Key Keeper',    score: 85, initials: 'MF' },
+    { name: 'Hafidz Hakimi',     role: 'Lab Inventory', score: 78, initials: 'HH' },
+  ];
+
+  const activity = [
+    { dot: 'dot-green', text: 'Application by Nurulain Nabilah approved',      time: '2 min ago' },
+    { dot: 'dot-amber', text: 'New application for Lab Opener/Closer received', time: '18 min ago' },
+    { dot: 'dot-red',   text: 'Job "Key Keeper" closed after deadline',         time: '1 hr ago' },
+    { dot: 'dot-green', text: 'New student Hafidz Hakimi registered',           time: '3 hrs ago' },
+    { dot: 'dot-amber', text: 'Merit score updated for Nurulain Nabilah',       time: '5 hrs ago' },
+  ];
+
+  
+
+
+  function renderJobs() {
+    const el = document.getElementById('jobsList');
+    el.innerHTML = '';
+    jobs.slice(0, 3).forEach(j => {
+      el.innerHTML += `
+        <div class="job-item" id="job-${j.id}">
+          <div class="job-item-info">
+            <div class="job-item-title">${j.title}</div>
+            <div class="job-item-meta">${j.location} · Duration: ${j.duration}</div>
+          </div>
+          <button class="btn-delete" onclick="confirmDelete(${j.id}, '${j.title}')">Delete</button>
+        </div>`;
+    });
+    document.getElementById('statJobs').textContent = jobs.length;
+  }
+  renderJobs();
+
+
+  const appsEl = document.getElementById('appsList');
+  applications.forEach(a => {
+    const div = document.createElement('div');
+    div.className = 'app-item';
+    div.id = 'app-' + a.id;
+    div.innerHTML = `
+      <div class="app-name">${a.name}</div>
+      <div class="app-role">${a.role}</div>
+      <div class="app-actions">
+        <button class="btn-approve" onclick="handleApp(${a.id},'approved','${a.name}')">Approved</button>
+        <button class="btn-reject"  onclick="handleApp(${a.id},'rejected','${a.name}')">Reject</button>
+      </div>`;
+    appsEl.appendChild(div);
+  });
+
+
+  const meritEl = document.getElementById('meritList');
+  merits.forEach(m => {
+    meritEl.innerHTML += `
+      <div class="merit-item">
+        <div class="merit-avatar">${m.initials}</div>
+        <div class="merit-info">
+          <div class="merit-name">${m.name}</div>
+          <div class="merit-role">${m.role}</div>
+          <div class="merit-bar-wrap"><div class="merit-bar" style="width:${m.score}%"></div></div>
+        </div>
+        <div class="merit-score">${m.score}</div>
+      </div>`;
+  });
+
+  
+  const actEl = document.getElementById('activityList');
+  activity.forEach(a => {
+    actEl.innerHTML += `
+      <div class="activity-item">
+        <div class="activity-dot ${a.dot}"></div>
+        <div>
+          <div class="activity-text">${a.text}</div>
+          <div class="activity-time">${a.time}</div>
+        </div>
+      </div>`;
+  });
+
+  
+  function openAddJobModal() {
+    document.getElementById('addJobModal').classList.add('open');
+  }
+  function closeAddJobModal() {
+    document.getElementById('addJobModal').classList.remove('open');
+    ['fJob','fLocation','fDate','fAllowance','fTodo'].forEach(id => document.getElementById(id).value = '');
+  }
+  function submitJob() {
+    const title    = document.getElementById('fJob').value.trim();
+    const location = document.getElementById('fLocation').value.trim();
+    const duration = document.getElementById('fDate').value.trim();
+    const allowance = parseFloat(document.getElementById('fAllowance').value);
+    if (!title || !location || !duration || isNaN(allowance) || allowance <= 0) {
+      showToast('Please fill in all fields correctly.');
+      return;
+    }
+    const newId = Date.now();
+    jobs.push({ id: newId, title, location, duration, allowance });
+    renderJobs();
+    closeAddJobModal();
+    document.getElementById('successTitle').textContent = 'Job Added Successfully';
+    document.getElementById('successOverlay').classList.add('open');
+  }
+
+  
+  let pendingDelId = null;
+  function confirmDelete(id, title) {
+    pendingDelId = id;
+    document.getElementById('delModalBody').textContent =
+      `Remove "${title}"? All related applications will be deleted. This cannot be undone.`;
+    document.getElementById('delModal').classList.add('open');
+  }
+  function closeDelModal() {
+    document.getElementById('delModal').classList.remove('open');
+    pendingDelId = null;
+  }
+  document.getElementById('confirmDelBtn').addEventListener('click', () => {
+    jobs = jobs.filter(j => j.id !== pendingDelId);
+    renderJobs();
+    closeDelModal();
+    showToast('Job deleted successfully.');
+  });
+  document.getElementById('delModal').addEventListener('click', e => {
+    if (e.target === e.currentTarget) closeDelModal();
+  });
+
+
+  function handleApp(id, action, name) {
+    const el = document.getElementById('app-' + id);
+    if (el) { el.style.opacity = '0.4'; el.style.pointerEvents = 'none'; }
+    const label = action === 'approved' ? 'approved' : 'rejected';
+    showToast(`${name.split(' ')[0]}'s application ${label}.`);
+    let cnt = parseInt(document.getElementById('pendingCount').textContent);
+    document.getElementById('pendingCount').textContent = Math.max(0, cnt - 1);
+    document.getElementById('statPending').textContent  = Math.max(0, cnt - 1);
+    if (action === 'approved') {
+      let appr = parseInt(document.getElementById('statApproved').textContent);
+      document.getElementById('statApproved').textContent = appr + 1;
+    }
+  }
+
+
+  function closeSuccess() {
+    document.getElementById('successOverlay').classList.remove('open');
+  }
+  document.getElementById('addJobModal').addEventListener('click', e => {
+    if (e.target === e.currentTarget) closeAddJobModal();
+  });
+
+ 
+  function doLogout() {
+    sessionStorage.clear();
+    window.location.href = 'login.html';
+  }
+
+ 
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+</script>
+</body>
+</html>

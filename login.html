@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rakan Teknikal FTMK – Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --yellow:      #FFC107;
+      --yellow-dark: #FFB300;
+      --yellow-deep: #FF8F00;
+      --white:       #ffffff;
+      --offwhite:    #FFFDF5;
+      --text-dark:   #2c2c2c;
+      --text-mid:    #555555;
+      --text-light:  #888888;
+      --red:         #E53935;
+      --green:       #43A047;
+      --card-shadow: 0 4px 24px rgba(0,0,0,0.10);
+      --radius:      12px;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--offwhite);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      background: var(--yellow);
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .topbar-left, .topbar-right {
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    }
+    .brand { font-weight: 700; font-size: 1.1rem; color: var(--text-dark); }
+    .topbar-info { font-size: 0.78rem; color: var(--text-dark); display: flex; align-items: center; gap: 5px; }
+
+
+    .login-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: stretch;
+      min-height: calc(100vh - 52px);
+    }
+
+
+    .login-left {
+      flex: 1;
+      background: var(--yellow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 40px;
+      gap: 20px;
+    }
+    .login-left-title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.15;
+      text-align: center;
+    }
+    .login-left-title span { color: var(--white); }
+    .login-left-sub {
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      opacity: 0.85;
+      text-align: center;
+      max-width: 300px;
+    }
+    .login-illustration {
+      width: 220px;
+      height: 220px;
+    }
+
+
+    .login-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 32px;
+      background: var(--offwhite);
+    }
+    .login-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+      padding: 44px 40px 36px;
+      width: 100%;
+      max-width: 400px;
+      border: 1px solid #f0e8d0;
+    }
+    .login-card-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+    .login-card-sub {
+      font-size: 0.82rem;
+      color: var(--text-mid);
+      margin-bottom: 28px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+    .form-input-wrap {
+      position: relative;
+      margin-bottom: 18px;
+    }
+    .form-input {
+      width: 100%;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 0.88rem;
+      font-family: 'Poppins', sans-serif;
+      background: #fafafa;
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .form-input:focus {
+      border-color: var(--yellow-dark);
+      background: var(--white);
+    }
+    .toggle-pw {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-light);
+      font-size: 1rem;
+      line-height: 1;
+      padding: 0;
+    }
+
+
+    .role-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+    .role-tab {
+      flex: 1;
+      padding: 8px 0;
+      border-radius: 8px;
+      border: 1.5px solid #ddd;
+      background: #fafafa;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-mid);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .role-tab.active {
+      background: var(--yellow);
+      border-color: var(--yellow-dark);
+      color: var(--text-dark);
+    }
+
+    .btn-login {
+      width: 100%;
+      background: var(--yellow);
+      color: var(--text-dark);
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      transition: background 0.15s;
+      margin-top: 8px;
+    }
+    .btn-login:hover { background: var(--yellow-dark); }
+    .btn-login:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .error-msg {
+      background: #fdecea;
+      border: 1px solid #f5c6c4;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.82rem;
+      color: var(--red);
+      margin-bottom: 16px;
+      display: none;
+    }
+    .error-msg.show { display: block; }
+
+    .login-hint {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      text-align: center;
+      margin-top: 20px;
+    }
+    .login-hint strong { color: var(--yellow-deep); }
+
+
+    @media (max-width: 700px) {
+      .login-left { display: none; }
+      .login-right { padding: 28px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+
+<div class="topbar">
+  <div class="topbar-left">
+    <span class="brand">Rakan Teknikal</span>
+    <span class="topbar-info">
+      📍 FTMK, Universiti Teknikal Malaysia Melaka
+    </span>
+  </div>
+  <div class="topbar-right">
+    <span class="topbar-info">📞 +06 229 2121</span>
+    <span class="topbar-info">✉️ ftmk@utem.edu.my</span>
+  </div>
+</div>
+
+
+<div class="login-wrapper">
+
+
+  <div class="login-left">
+    <!-- Inline illustration matching project mockup style -->
+    <svg class="login-illustration" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+    </svg>
+    <div class="login-left-title">Welcome<br/><span>Back!</span></div>
+    <div class="login-left-sub">Rakan Teknikal helps you earn extra income through faculty part-time opportunities.</div>
+  </div>
+
+  <!-- Right form panel -->
+  <div class="login-right">
+    <div class="login-card">
+      <div class="login-card-title">Welcome Back!</div>
+      <div class="login-card-sub">Sign in to your Rakan Teknikal account</div>
+
+      <!-- Role selector -->
+      <div class="role-tabs" id="roleTabs">
+        <button class="role-tab active" data-role="student" onclick="setRole('student', this)">🎓 Student</button>
+        <button class="role-tab" data-role="admin" onclick="setRole('admin', this)">🔐 Admin</button>
+      </div>
+
+      <div class="error-msg" id="errorMsg">Invalid credentials. Please try again.</div>
+
+      <!-- User ID -->
+      <label class="form-label" id="idLabel" for="userId">Matric No.</label>
+      <div class="form-input-wrap">
+        <input class="form-input" type="text" id="userId" placeholder="e.g. D032410081" autocomplete="username"/>
+      </div>
+
+      <!-- Password -->
+      <label class="form-label" for="password">Password</label>
+      <div class="form-input-wrap">
+        <input class="form-input" type="password" id="password" placeholder="Enter your password" autocomplete="current-password"/>
+        <button class="toggle-pw" type="button" onclick="togglePw()" id="pwToggleBtn" title="Show/hide password">👁</button>
+      </div>
+
+      <button class="btn-login" id="loginBtn" onclick="doLogin()">Login</button>
+
+      <p class="login-hint">
+        Demo — Student: <strong>D032410081 / pass1234</strong> &nbsp;|&nbsp; Admin: <strong>STAFF001 / admin1234</strong>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentRole = 'student';
+
+  function setRole(role, el) {
+    currentRole = role;
+    document.querySelectorAll('.role-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('idLabel').textContent = role === 'admin' ? 'Staff ID' : 'Matric No.';
+    document.getElementById('userId').placeholder = role === 'admin' ? 'e.g. STAFF001' : 'e.g. D032410081';
+    document.getElementById('errorMsg').classList.remove('show');
+  }
+
+  function togglePw() {
+    const input = document.getElementById('password');
+    input.type = input.type === 'password' ? 'text' : 'password';
+  }
+
+  // Demo credentials
+  const demoUsers = {
+    student: { id: 'D032410081', pass: 'pass1234', redirect: 'student-dashboard.html' },
+    admin:   { id: 'STAFF001',   pass: 'admin1234', redirect: 'admin-dashboard.html' },
+  };
+
+  function doLogin() {
+    const id   = document.getElementById('userId').value.trim();
+    const pass = document.getElementById('password').value;
+    const err  = document.getElementById('errorMsg');
+    const btn  = document.getElementById('loginBtn');
+
+    err.classList.remove('show');
+
+    if (!id || !pass) {
+      err.textContent = 'Please enter both ID and password.';
+      err.classList.add('show');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Logging in…';
+
+    // Simulate network delay
+    setTimeout(() => {
+      const cred = demoUsers[currentRole];
+      if (id === cred.id && pass === cred.pass) {
+        // Store session info (replace with PHP session in production)
+        sessionStorage.setItem('rt_role', currentRole);
+        sessionStorage.setItem('rt_user', id);
+        // Redirect
+        window.location.href = cred.redirect;
+      } else {
+        err.textContent = 'Invalid ' + (currentRole === 'admin' ? 'Staff ID' : 'Matric No.') + ' or password.';
+        err.classList.add('show');
+        btn.disabled = false;
+        btn.textContent = 'Login';
+      }
+    }, 700);
+  }
+
+  // Allow Enter key
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter') doLogin();
+  });
+</script>
+</body>
+</html>
