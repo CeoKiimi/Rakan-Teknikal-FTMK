@@ -12,4 +12,5 @@
     <a href="student-dashboard.php">Dashboard</a>
     <a href="profile.php">Profile</a>
     <a href="jobs-available.php">Jobs Available</a>
+    <a href="logout.php" onclick="return confirm('Are you sure you want to logout?');">Logout</a>
 </div>

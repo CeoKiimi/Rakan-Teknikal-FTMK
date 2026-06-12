@@ -1,8 +1,51 @@
 <?php
-session_start();
+require_once "auth.php";
+require_student();
 
 $activePage = "dashboard";
-$studentName = $_SESSION["student_name"] ?? "Ain";
+$student = current_student($conn);
+
+$studentDbId = (int)$student["student_id"];
+$studentName = $student["preferred_name"] ?: strtok($student["full_name"], " ");
+
+$stmt = $conn->prepare("
+    SELECT j.job_id, j.title, j.location, j.job_date, j.allowance, j.todo
+    FROM jobs j
+    WHERE j.is_active = 1
+      AND NOT EXISTS (
+        SELECT 1
+        FROM applications a
+        WHERE a.job_id = j.job_id
+          AND a.student_id = ?
+      )
+    ORDER BY j.created_at DESC
+    LIMIT 2
+");
+$stmt->bind_param("i", $studentDbId);
+$stmt->execute();
+$latestJobs = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+$stmt = $conn->prepare("
+    SELECT a.status, j.title, j.location
+    FROM applications a
+    INNER JOIN jobs j ON a.job_id = j.job_id
+    WHERE a.student_id = ?
+    ORDER BY a.applied_at DESC
+    LIMIT 3
+");
+$stmt->bind_param("i", $studentDbId);
+$stmt->execute();
+$applications = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+$merit = (int)$student["merit_score"];
+if ($merit < 0) $merit = 0;
+if ($merit > 100) $merit = 100;
+
+$meritDeg = $merit * 1.8;
+
+function status_class($status) {
+    return strtolower($status);
+}
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +67,7 @@ $studentName = $_SESSION["student_name"] ?? "Ain";
     <section class="welcome-banner">
       <div class="welcome-text">
         <p class="date-text" id="dateText">14 April 2026</p>
-        <h1>Welcome Back, <?php echo htmlspecialchars($studentName); ?></h1>
+        <h1>Welcome Back, <?php echo e($studentName); ?></h1>
         <p>Rakan Teknikal helps you earn extra income</p>
       </div>
 
@@ -42,25 +85,29 @@ $studentName = $_SESSION["student_name"] ?? "Ain";
           <h2>Latest Jobs</h2>
         </div>
 
-        <div class="job-box">
-          <div>
-            <h3>Lab Opener/Closer</h3>
-            <p>Level 2 Blok B</p>
-            <p>Duration : 1 Week</p>
+        <?php if (count($latestJobs) > 0): ?>
+          <?php foreach ($latestJobs as $job): ?>
+            <div class="job-box">
+              <div>
+                <h3><?php echo e($job["title"]); ?></h3>
+                <p><?php echo e($job["location"]); ?></p>
+                <p>Date : <?php echo e($job["job_date"]); ?></p>
+              </div>
+
+              <form action="apply-job.php" method="POST">
+                <input type="hidden" name="job_id" value="<?php echo (int)$job["job_id"]; ?>">
+                <button type="submit" class="small-btn apply-btn">Apply</button>
+              </form>
+            </div>
+          <?php endforeach; ?>
+        <?php else: ?>
+          <div class="job-box">
+            <div>
+              <h3>No jobs available yet</h3>
+              <p>Please check again later</p>
+            </div>
           </div>
-
-          <button type="button" class="small-btn apply-btn">Apply</button>
-        </div>
-
-        <div class="job-box">
-          <div>
-            <h3>Lab Inventory</h3>
-            <p>AI2</p>
-            <p>Duration : 2 Weeks</p>
-          </div>
-
-          <button type="button" class="small-btn apply-btn">Apply</button>
-        </div>
+        <?php endif; ?>
 
         <div class="card-footer">
           <button class="main-btn" onclick="window.location.href='jobs-available.php'">
@@ -75,32 +122,27 @@ $studentName = $_SESSION["student_name"] ?? "Ain";
           <h2>My Applications</h2>
         </div>
 
-        <div class="application-box">
-          <div>
-            <h3>Room Monitor</h3>
-            <p>MPD3</p>
+        <?php if (count($applications) > 0): ?>
+          <?php foreach ($applications as $application): ?>
+            <div class="application-box">
+              <div>
+                <h3><?php echo e($application["title"]); ?></h3>
+                <p><?php echo e($application["location"]); ?></p>
+              </div>
+
+              <span class="status <?php echo e(status_class($application["status"])); ?>">
+                <?php echo e($application["status"]); ?>
+              </span>
+            </div>
+          <?php endforeach; ?>
+        <?php else: ?>
+          <div class="application-box">
+            <div>
+              <h3>No applications yet</h3>
+              <p>Apply for a job first</p>
+            </div>
           </div>
-
-          <span class="status approved">Approved</span>
-        </div>
-
-        <div class="application-box">
-          <div>
-            <h3>Key Keeper</h3>
-            <p>level G, Blok C</p>
-          </div>
-
-          <span class="status pending">Pending</span>
-        </div>
-
-        <div class="application-box">
-          <div>
-            <h3>Software Installer</h3>
-            <p>Bengkel BITD</p>
-          </div>
-
-          <span class="status rejected">Rejected</span>
-        </div>
+        <?php endif; ?>
 
         <div class="card-footer">
           <button class="view-more-btn" onclick="window.location.href='my-application.php'">
@@ -116,9 +158,9 @@ $studentName = $_SESSION["student_name"] ?? "Ain";
         </div>
 
         <div class="gauge">
-          <div class="gauge-arc"></div>
+          <div class="gauge-arc" style="--merit-deg: <?php echo e($meritDeg); ?>deg;"></div>
           <div class="gauge-cover"></div>
-          <p>90%</p>
+          <p><?php echo e($merit); ?>%</p>
         </div>
 
         <p class="merit-text">
@@ -129,6 +171,6 @@ $studentName = $_SESSION["student_name"] ?? "Ain";
     </section>
   </main>
 
-  <script src="student-dashboard.js?v=2"></script>
+  <script src="student-dashboard.js?v=3"></script>
 </body>
 </html>

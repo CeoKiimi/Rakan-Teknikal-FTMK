@@ -1,7 +1,32 @@
 <?php
-session_start();
+require_once "auth.php";
+require_student();
 
 $activePage = "jobs";
+$student = current_student($conn);
+$studentDbId = (int)$student["student_id"];
+
+$stmt = $conn->prepare("
+    SELECT
+      j.job_id,
+      j.title,
+      j.location,
+      j.job_date,
+      j.allowance,
+      j.todo,
+      EXISTS (
+        SELECT 1
+        FROM applications a
+        WHERE a.job_id = j.job_id
+          AND a.student_id = ?
+      ) AS already_applied
+    FROM jobs j
+    WHERE j.is_active = 1
+    ORDER BY j.created_at DESC
+");
+$stmt->bind_param("i", $studentDbId);
+$stmt->execute();
+$jobs = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -37,83 +62,38 @@ $activePage = "jobs";
 
         <div class="jobs-grid">
 
-            <div class="job-card">
-                <h2>Lab Inventory</h2>
-                <p>AI2</p>
-                <p>Date : 20/4 - 3/5</p>
-                <p>Allowance : RM5/Hours</p>
+            <?php if (count($jobs) > 0): ?>
+                <?php foreach ($jobs as $job): ?>
+                    <div class="job-card">
+                        <h2><?php echo e($job["title"]); ?></h2>
+                        <p><?php echo e($job["location"]); ?></p>
+                        <p>Date : <?php echo e($job["job_date"]); ?></p>
+                        <p>Allowance : <?php echo e($job["allowance"]); ?></p>
 
-                <div class="todo">
-                    To Do : Ensure lab equipment is properly arranged
+                        <div class="todo">
+                            To Do : <?php echo e($job["todo"]); ?>
+                        </div>
+
+                        <?php if ((int)$job["already_applied"] === 1): ?>
+                            <button class="apply-btn" type="button" disabled>Applied</button>
+                        <?php else: ?>
+                            <form action="apply-job.php" method="POST">
+                                <input type="hidden" name="job_id" value="<?php echo (int)$job["job_id"]; ?>">
+                                <button class="apply-btn" type="submit">Apply</button>
+                            </form>
+                        <?php endif; ?>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div class="job-card">
+                    <h2>No jobs available yet</h2>
+                    <p>Please check again later</p>
+
+                    <div class="todo">
+                        New jobs will appear here once admin adds them.
+                    </div>
                 </div>
-
-                <button class="apply-btn">Apply</button>
-            </div>
-
-            <div class="job-card">
-                <h2>Key Keeper</h2>
-                <p>Level G, Blok C</p>
-                <p>Date : 1/6</p>
-                <p>Allowance : RM40</p>
-
-                <div class="todo">
-                    To Do : Open lab, collect and return keys in good condition
-                </div>
-
-                <button class="apply-btn">Apply</button>
-            </div>
-
-            <div class="job-card">
-                <h2>Software Installer</h2>
-                <p>Bengkel BITD</p>
-                <p>Date : 20/4 - 3/5</p>
-                <p>Allowance : RM100</p>
-
-                <div class="todo">
-                    To Do : Install and update required software
-                </div>
-
-                <button class="apply-btn">Apply</button>
-            </div>
-
-            <div class="job-card">
-                <h2>Room Monitor</h2>
-                <p>Student Room</p>
-                <p>Date : 25/5 - 30/5</p>
-                <p>Allowance : RM4/Hours</p>
-
-                <div class="todo">
-                    To Do : Monitor environment, report any issues
-                </div>
-
-                <button class="apply-btn">Apply</button>
-            </div>
-
-            <div class="job-card">
-                <h2>Equipment Checker</h2>
-                <p>MRI</p>
-                <p>Date : 23/4</p>
-                <p>Allowance : RM60</p>
-
-                <div class="todo">
-                    To Do : Check equipment, report damage
-                </div>
-
-                <button class="apply-btn">Apply</button>
-            </div>
-
-            <div class="job-card">
-                <h2>Lab Opener/Closer</h2>
-                <p>Level 2, Blok A</p>
-                <p>Date : 6/7 - 11/7</p>
-                <p>Allowance : RM7/Hours</p>
-
-                <div class="todo">
-                    To Do : Open lab before session, close lab after session
-                </div>
-
-                <button class="apply-btn">Apply</button>
-            </div>
+            <?php endif; ?>
 
         </div>
 

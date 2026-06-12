@@ -1,5 +1,25 @@
 <?php
-session_start();
+require_once "auth.php";
+require_student();
+
+$student = current_student($conn);
+$studentDbId = (int)$student["student_id"];
+
+$stmt = $conn->prepare("
+    SELECT a.status, j.title, j.location
+    FROM applications a
+    INNER JOIN jobs j ON a.job_id = j.job_id
+    WHERE a.student_id = ?
+    ORDER BY a.applied_at DESC
+");
+$stmt->bind_param("i", $studentDbId);
+$stmt->execute();
+
+$applications = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+function status_class($status) {
+    return strtolower($status);
+}
 ?>
 
 <!DOCTYPE html>
@@ -22,53 +42,27 @@ session_start();
         <h1>🗂️ My Applications</h1>
 
         <div class="applications-list">
-            <div class="application-card">
-                <div>
-                    <h3>Lab Inventory</h3>
-                    <p>MPD3</p>
-                </div>
-                <span class="status completed">Completed</span>
-            </div>
+            <?php if (count($applications) > 0): ?>
+                <?php foreach ($applications as $application): ?>
+                    <div class="application-card">
+                        <div>
+                            <h3><?php echo e($application["title"]); ?></h3>
+                            <p><?php echo e($application["location"]); ?></p>
+                        </div>
 
-            <div class="application-card">
-                <div>
-                    <h3>Key Keeper</h3>
-                    <p>level G, Blok C</p>
+                        <span class="status <?php echo e(status_class($application["status"])); ?>">
+                            <?php echo e($application["status"]); ?>
+                        </span>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div class="application-card">
+                    <div>
+                        <h3>No applications yet</h3>
+                        <p>Apply for a job first</p>
+                    </div>
                 </div>
-                <span class="status pending">Pending</span>
-            </div>
-
-            <div class="application-card">
-                <div>
-                    <h3>Food Setup</h3>
-                    <p>Blok A, C, E</p>
-                </div>
-                <span class="status completed">Completed</span>
-            </div>
-
-            <div class="application-card">
-                <div>
-                    <h3>Software Installer</h3>
-                    <p>MM4</p>
-                </div>
-                <span class="status rejected">Rejected</span>
-            </div>
-
-            <div class="application-card">
-                <div>
-                    <h3>Software Installer</h3>
-                    <p>Bengkel BITD</p>
-                </div>
-                <span class="status rejected">Rejected</span>
-            </div>
-
-            <div class="application-card">
-                <div>
-                    <h3>Lab Monitor</h3>
-                    <p>MPD3</p>
-                </div>
-                <span class="status approved">Approved</span>
-            </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>

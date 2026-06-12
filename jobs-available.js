@@ -1,9 +1,1 @@
-document.querySelectorAll(".apply-btn").forEach(button => {
-
-    button.addEventListener("click", () => {
-
-        window.location.href = "application-success.php";
-
-    });
-
-});
+// Apply buttons now submit to apply-job.php so applications can be saved in MySQL.

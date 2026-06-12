@@ -2,6 +2,8 @@
 session_start();
 
 $error = $_GET["error"] ?? "";
+$registered = $_GET["registered"] ?? "";
+$logout = $_GET["logout"] ?? "";
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +14,7 @@ $error = $_GET["error"] ?? "";
 
   <title>Rakan Teknikal FTMK Login</title>
 
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=3" />
 </head>
 <body>
   <main class="login-page">
@@ -82,11 +84,22 @@ $error = $_GET["error"] ?? "";
           ?>
         </p>
 
+        <?php if ($registered === "1"): ?>
+          <p class="success-message">Registration successful. You can login now.</p>
+        <?php elseif ($logout === "1"): ?>
+          <p class="success-message">Logged out successfully.</p>
+        <?php endif; ?>
+
         <button type="submit" class="login-btn">Login</button>
+
+        <p class="register-text">
+          New student?
+          <a href="register-student.php">Register here</a>
+        </p>
       </form>
     </section>
   </main>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=2"></script>
 </body>
 </html>

@@ -11,11 +11,3 @@ if (dateText) {
 
   dateText.textContent = formattedDate;
 }
-
-const applyButtons = document.querySelectorAll(".apply-btn");
-
-applyButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    window.location.href = "application-success.php";
-  });
-});

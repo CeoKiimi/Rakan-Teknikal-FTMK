@@ -216,8 +216,8 @@ body {
     conic-gradient(
       from 270deg,
       #f7b800 0deg,
-      #f7b800 162deg,
-      #fff2d4 162deg,
+      #f7b800 var(--merit-deg, 162deg),
+      #fff2d4 var(--merit-deg, 162deg),
       #fff2d4 180deg,
       transparent 180deg,
       transparent 360deg
