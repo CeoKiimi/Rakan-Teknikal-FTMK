@@ -1,0 +1,98 @@
+CREATE DATABASE IF NOT EXISTS rakan_teknikal_ftmk
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+
+USE rakan_teknikal_ftmk;
+
+CREATE TABLE IF NOT EXISTS users (
+  user_id INT AUTO_INCREMENT PRIMARY KEY,
+  login_id VARCHAR(50) NOT NULL UNIQUE,
+  password_hash VARCHAR(255) NOT NULL,
+  role ENUM('student', 'admin') NOT NULL,
+  is_active TINYINT(1) NOT NULL DEFAULT 1,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS students (
+  student_id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL UNIQUE,
+  matric_no VARCHAR(30) NOT NULL UNIQUE,
+  full_name VARCHAR(150) NOT NULL,
+  preferred_name VARCHAR(50) DEFAULT NULL,
+  programme VARCHAR(50) NOT NULL,
+  year_sem VARCHAR(20) NOT NULL,
+  status_category VARCHAR(50) NOT NULL,
+  merit_score TINYINT UNSIGNED NOT NULL DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+  CONSTRAINT fk_students_user
+    FOREIGN KEY (user_id)
+    REFERENCES users(user_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS admins (
+  admin_id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL UNIQUE,
+  staff_id VARCHAR(50) NOT NULL UNIQUE,
+  full_name VARCHAR(150) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+  CONSTRAINT fk_admins_user
+    FOREIGN KEY (user_id)
+    REFERENCES users(user_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS jobs (
+  job_id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(100) NOT NULL,
+  location VARCHAR(100) NOT NULL,
+  job_date VARCHAR(50) NOT NULL,
+  allowance VARCHAR(50) NOT NULL,
+  allowance_amount DECIMAL(10,2) DEFAULT NULL,
+  todo TEXT NOT NULL,
+  slots INT NOT NULL DEFAULT 1,
+  is_active TINYINT(1) NOT NULL DEFAULT 1,
+  created_by INT DEFAULT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+  CONSTRAINT fk_jobs_created_by
+    FOREIGN KEY (created_by)
+    REFERENCES admins(admin_id)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS applications (
+  application_id INT AUTO_INCREMENT PRIMARY KEY,
+  student_id INT NOT NULL,
+  job_id INT NOT NULL,
+  status ENUM('Pending', 'Approved', 'Rejected', 'Completed') NOT NULL DEFAULT 'Pending',
+  paid_amount DECIMAL(10,2) DEFAULT NULL,
+  applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  decided_by INT DEFAULT NULL,
+  decided_at DATETIME DEFAULT NULL,
+
+  UNIQUE KEY unique_student_job (student_id, job_id),
+
+  CONSTRAINT fk_applications_student
+    FOREIGN KEY (student_id)
+    REFERENCES students(student_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+
+  CONSTRAINT fk_applications_job
+    FOREIGN KEY (job_id)
+    REFERENCES jobs(job_id)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE,
+
+  CONSTRAINT fk_applications_decided_by
+    FOREIGN KEY (decided_by)
+    REFERENCES admins(admin_id)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE
+) ENGINE=InnoDB;
