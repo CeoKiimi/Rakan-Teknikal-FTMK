@@ -51,7 +51,7 @@ $averageMerit = (int)($meritStmt->get_result()->fetch_assoc()['average_merit'] ?
             <h1>Welcome Back, <?php echo e(admin_short_name($adminName)); ?></h1>
             <p>Rakan Teknikal helps you manage student part-time jobs.</p>
         </div>
-        <img src="assets/manage.png" alt="Admin illustration">
+        <img src="images/gambar shopping.png" alt="Admin illustration">
     </section>
 
     <section class="dashboard-grid">
