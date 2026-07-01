@@ -56,7 +56,6 @@ $students = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                             required
                         >
                         <button type="submit" class="action-btn green">Update</button>
-                        <a class="action-btn yellow" href="admin-view-profile.php?student_id=<?php echo (int)$student['student_id']; ?>">View Profile</a>
                     </form>
                 </article>
             <?php endforeach; ?>
