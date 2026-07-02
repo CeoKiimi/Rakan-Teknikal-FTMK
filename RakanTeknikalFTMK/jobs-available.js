@@ -1,0 +1,1 @@
+// Apply buttons now submit to apply-job.php so applications can be saved in MySQL.

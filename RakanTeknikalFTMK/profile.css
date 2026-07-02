@@ -1,0 +1,251 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #fff5ef;
+  font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+  color: #222;
+}
+
+.profile-page {
+  width: 100%;
+  padding: 18px 20px 24px;
+}
+
+.profile-card {
+  width: 100%;
+  min-height: 120px;
+  background: #fff8f2;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  padding: 15px 48px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.08);
+}
+
+.profile-avatar {
+  width: 110px;
+  height: 110px;
+  background: #f15bb5;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  margin-right: 44px;
+  flex-shrink: 0;
+}
+
+.avatar-hair {
+  width: 70px;
+  height: 75px;
+  background: #26386f;
+  border-radius: 50% 50% 38% 38%;
+  position: absolute;
+  left: 20px;
+  top: 22px;
+  z-index: 1;
+}
+
+.avatar-face {
+  width: 42px;
+  height: 50px;
+  background: #ffd0b7;
+  border-radius: 50% 50% 45% 45%;
+  position: absolute;
+  left: 34px;
+  top: 38px;
+  z-index: 2;
+}
+
+.avatar-body {
+  width: 80px;
+  height: 45px;
+  background: #ffe8df;
+  border-radius: 50% 50% 0 0;
+  position: absolute;
+  left: 15px;
+  bottom: -6px;
+  z-index: 1;
+}
+
+.profile-info h1 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 7px;
+}
+
+.profile-info p {
+  font-size: 15px;
+  line-height: 1.35;
+  color: #555;
+  font-weight: 500;
+}
+
+.earning-wrapper {
+  width: 100%;
+  margin-top: 18px;
+  background: #fff7d7;
+  border-radius: 3px;
+  padding: 18px;
+}
+
+.earning-card {
+  width: 100%;
+  min-height: 215px;
+  background: #fff8f2;
+  border-radius: 4px;
+  display: flex;
+  padding: 15px 16px;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.13);
+}
+
+.earning-left {
+  width: 250px;
+  text-align: center;
+  padding-top: 2px;
+}
+
+.earning-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.coin-icon {
+  width: 22px;
+  height: 22px;
+  background: #f7b800;
+  color: #7b5a00;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.earning-title h2 {
+  font-size: 20px;
+  color: #5a5a5a;
+  font-weight: 800;
+}
+
+.money-icon {
+  font-size: 72px;
+  line-height: 1;
+  margin-top: 10px;
+}
+
+.total-money {
+  font-size: 19px;
+  font-weight: 500;
+  margin-top: 12px;
+}
+
+.earning-right {
+  width: 300px;
+  margin-left: 20px;
+}
+
+.earning-job {
+  width: 100%;
+  min-height: 70px;
+  background: #fffafa;
+  border-radius: 5px;
+  padding: 12px 14px;
+  margin-bottom: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow:
+    0 2px 7px rgba(0, 0, 0, 0.12),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.03);
+}
+
+.earning-job h3 {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.earning-job p {
+  font-size: 14px;
+  line-height: 1.25;
+  font-weight: 500;
+}
+
+.completed {
+  width: 88px;
+  height: 32px;
+  background: #c6c6c6;
+  color: white;
+  font-size: 13px;
+  font-weight: 800;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 900px) {
+  .profile-card {
+    padding: 18px 24px;
+  }
+
+  .profile-avatar {
+    margin-right: 25px;
+  }
+
+  .earning-card {
+    flex-direction: column;
+  }
+
+  .earning-left {
+    width: 100%;
+  }
+
+  .earning-right {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 520px) {
+  .profile-page {
+    padding: 14px;
+  }
+
+  .profile-card {
+    display: block;
+    text-align: center;
+  }
+
+  .profile-avatar {
+    margin: 0 auto 18px;
+  }
+
+  .profile-info h1 {
+    font-size: 19px;
+  }
+
+  .profile-info p {
+    font-size: 14px;
+  }
+
+  .earning-title h2 {
+    font-size: 18px;
+  }
+
+  .earning-job {
+    display: block;
+  }
+
+  .completed {
+    margin-top: 10px;
+  }
+}
